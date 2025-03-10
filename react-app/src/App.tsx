@@ -1,5 +1,4 @@
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import k8sLogo from './assets/kubernetes.svg'
 import './App.css'
 
