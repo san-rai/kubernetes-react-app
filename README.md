@@ -1,54 +1,38 @@
-# React + TypeScript + Vite
+# Kubernetes React App
+This is a test project aimed at deploying a simple React app on a Kubernetes cluster (using Minikube).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The purpose of this project is to containerise a React app using Docker, deploy it on a local Kubernetes cluster, and manage the application using Kubernetes resources.
 
-Currently, two official plugins are available:
+## Project Overview
+This project includes the following:
+- React app built using Vite
+- Dockerfile to build a Docker image for the React app
+- Minikube Kubernetes cluster for local development
+- Kubernetes deployment and service configuration files to deploy the app to the cluster and expose it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
+Before you begin, ensure you have the following installed:
+1. **Homebrew**
+2. **Minikube** (Local Kubernetes cluster for macOS, Linux, and Windows)
+3. **kubectl** (Kubernetes CLI)
+4. **Docker**
+5. **Docker Desktop**
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Run the App Locally Using Minikube
+### 1. Run the script
 ```
+./setup-and-deploy.sh
+```
+What the script does:
+- Initialises local Kubernetes cluster using Minikube
+- Sets Docker environment to Minikube's Docker daemon
+- Starts the local Docker registry container
+- Builds React app Docker image and pushes it to the local registry
+- Deploys the React app to the local Kubernetes cluster
+- Exposes the app via a Kubernetes service
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 2. Access the App in Your Browser
+If the app does not open automatically in your default browser, run the following command:
+```
+minikube service react-app-service
 ```
